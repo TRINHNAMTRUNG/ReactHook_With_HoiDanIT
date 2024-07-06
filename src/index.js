@@ -11,7 +11,7 @@ import './App.scss';
 import App from './App.js';
 import User from './components/User/User.js';
 import Admin from './components/Admin/Admin.js';
-
+import HomePage from './components/Home/HomePage.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -24,6 +24,7 @@ root.render(
       <Route path="/" element={<App />} >
         <Route path="/users" element={<User />} />
         <Route path="/admins" element={<Admin />} />
+        <Route index element={<HomePage />} />
       </Route>
     </Routes>
   </BrowserRouter>
