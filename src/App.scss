@@ -41,7 +41,25 @@ body {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
+  }
+}
+
+.app-container {
+  .header-container {
+    .navbar-light {
+      background-color: #e4e4e49d;
+    }
+
+    .navbar-nav {
+      .nav-link {
+        &.active{
+          color: #03c8ff;
+        }
+      }
+    }
+
   }
 }
