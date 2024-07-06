@@ -50,9 +50,9 @@ body {
 .app-container {
   .header-container {
     .navbar-light {
-      background-color: #e4e4e49d;
+      z-index: 10;
+      background-color: #ffffff9d;
     }
-
     .navbar-nav {
       .nav-link {
         &.active{
@@ -62,4 +62,10 @@ body {
     }
 
   }
+}
+
+video {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
 }
