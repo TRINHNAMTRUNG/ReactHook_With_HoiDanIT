@@ -71,7 +71,7 @@ body {
       &.btn-signup {
         background-color: rgb(60, 60, 60);
         color: white;
-
+        border: none;
         &:hover {
           background-color: black;
         }
@@ -114,7 +114,7 @@ body {
       .title-3 {
         button {
           border-radius: 5px;
-          border: 1px solid black;
+          border: none;
           padding: 10px;
           background-color: rgb(60, 60, 60);
           color: white;
