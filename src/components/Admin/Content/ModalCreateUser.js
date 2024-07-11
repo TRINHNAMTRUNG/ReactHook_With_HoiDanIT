@@ -2,11 +2,10 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { CiSquarePlus } from "react-icons/ci";
-const ModalCreateUser = () => {
-    const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+import { postCreateUser } from '../../../services/apiService';
+import { toast } from 'react-toastify';
+const ModalCreateUser = (props) => {
+    const { show, setShow } = props;
 
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
@@ -17,20 +16,55 @@ const ModalCreateUser = () => {
 
     const handleUploadImage = (e) => {
         if (e.target && e.target.files && e.target.files[0]) {
-            setPreviewImage(URL.createObjectURL(e.target.files[0]))
-            setImage(e.target.files[0])
-            // console.log("state image: ", e.target.files[0])
-            // console.log("state PreviewImage: ", URL.createObjectURL(e.target.files[0]))
-        }else{
-            setPreviewImage("")
+            setPreviewImage(URL.createObjectURL(e.target.files[0]));
+            setImage(e.target.files[0]);
+        } else {
+            setPreviewImage("");
+        }
+    }
+    const handleClose = () => {
+        setShow(false);
+        setEmail("");
+        setUsername("");
+        setPassword("");
+        setRole("");
+        setImage("");
+        setPreviewImage("");
+    };
+    const validateEmail = (email) => {
+        return String(email)
+            .toLowerCase()
+            .match(
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            );
+    };
+    const handleSubmitCreateUser = async () => {
+        // validate
+        const isValidateEmail = validateEmail(email)
+        if (!isValidateEmail) {
+            toast.error("Invalid email");
+            return;
+        }
+        if (!password) {
+            toast.error("Invalid password");
+            return;
+        }
+        
+
+        let data = await postCreateUser(email, username, password, role, image);
+        if (data && data.EC === 0) {
+            handleClose();
+            toast.success(data.EM);
+        } else {
+            toast.error(data.EM);
         }
 
     }
     return (
         <>
-            <Button variant="primary" onClick={handleShow}>
+            {/* <Button variant="primary" onClick={handleShow}>
                 Launch demo modal
-            </Button>
+            </Button> */}
 
             <Modal
                 show={show}
@@ -102,7 +136,7 @@ const ModalCreateUser = () => {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={handleClose}>
+                    <Button variant="primary" onClick={() => handleSubmitCreateUser()}>
                         Save
                     </Button>
                 </Modal.Footer>

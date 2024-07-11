@@ -1,8 +1,14 @@
 .manage-user-container{
+    padding: 10px;
     .user-content{
-        .img-preview{
-            border: 1px solid red;
+        .btn-add-new{
+            margin: 15px 0;
         }
+
+    }
+    .title {
+        font-size: 20px;
+        font-weight: 400;
     }
 }
 
