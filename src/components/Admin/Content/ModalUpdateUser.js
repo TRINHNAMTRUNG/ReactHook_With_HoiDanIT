@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { CiSquarePlus } from "react-icons/ci";
-import { postCreateUser } from '../../../services/apiService';
+import { putUpdateUser } from '../../../services/apiService';
 import { toast } from 'react-toastify';
 import _ from 'lodash';
 const ModalUpdateUser = (props) => {
-    const { show, setShow, dataUpdate } = props;
+    const { show, setShow, dataUpdate, setDataUpdate} = props;
 
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
@@ -44,28 +44,11 @@ const ModalUpdateUser = (props) => {
         setRole("");
         setImage("");
         setPreviewImage("");
+        setDataUpdate({})
     };
-    const validateEmail = (email) => {
-        return String(email)
-            .toLowerCase()
-            .match(
-                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-            );
-    };
+
     const handleSubmitCreateUser = async () => {
-        // validate
-        const isValidateEmail = validateEmail(email)
-        if (!isValidateEmail) {
-            toast.error("Invalid email");
-            return;
-        }
-        if (!password) {
-            toast.error("Invalid password");
-            return;
-        }
-
-
-        let data = await postCreateUser(email, username, password, role, image);
+        let data = await putUpdateUser(dataUpdate.id, username, role, image);
         if (data && data.EC === 0) {
             handleClose();
             toast.success(data.EM);
