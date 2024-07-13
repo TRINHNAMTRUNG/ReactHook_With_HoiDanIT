@@ -81,7 +81,7 @@ const ManageUser = (props) => {
                     show={showModalDeleteUser}
                     setShow={setShowModalDeleteUser}
                     dataDelete = {dataDelete}
-                    setDataUpdate = {setDataUpdate}
+                    fetchListUsers={fetchListUsers}
                 />
             </div>
         </div>
