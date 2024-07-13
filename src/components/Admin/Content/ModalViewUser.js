@@ -5,7 +5,7 @@ import { CiSquarePlus } from "react-icons/ci";
 import { putUpdateUser } from '../../../services/apiService';
 import { toast } from 'react-toastify';
 import _ from 'lodash';
-const ModalUpdateUser = (props) => {
+const ModalViewUser = (props) => {
     const { show, setShow, dataUpdate, setDataUpdate} = props;
 
     const [email, setEmail] = useState("");
@@ -27,14 +27,6 @@ const ModalUpdateUser = (props) => {
         }
     }, [dataUpdate])
 
-    const handleUploadImage = (e) => {
-        if (e.target && e.target.files && e.target.files[0]) {
-            setPreviewImage(URL.createObjectURL(e.target.files[0]));
-            setImage(e.target.files[0]);
-        } else {
-            setPreviewImage("");
-        }
-    }
     const handleClose = () => {
         setShow(false);
         setEmail("");
@@ -43,19 +35,8 @@ const ModalUpdateUser = (props) => {
         setRole("");
         setImage("");
         setPreviewImage("");
-        setDataUpdate()
+        setDataUpdate();
     };
-
-    const handleSubmitCreateUser = async () => {
-        let data = await putUpdateUser(dataUpdate.id, username, role, image);
-        if (data && data.EC === 0) {
-            handleClose();
-            toast.success(data.EM);
-            await props.fetchListUsers();
-        } else {
-            toast.error(data.EM);
-        }
-    }
     return (
         <>
             {/* <Button variant="primary" onClick={handleShow}>
@@ -101,25 +82,16 @@ const ModalUpdateUser = (props) => {
                                 className="form-control"
                                 placeholder="Username"
                                 value={username}
+                                disabled
                                 onChange={(e) => setUsername(e.target.value)}
                             />
                         </div>
                         <div className="col-md-4">
                             <label htmlFor="inputState" className="form-label">Role</label>
-                            <select value={role} className="form-select" onChange={(e) => setRole(e.target.value)}>
+                            <select value={role} disabled className="form-select" onChange={(e) => setRole(e.target.value)}>
                                 <option value="ADMIN">ADMIN</option>
                                 <option value="USER">USER</option>
                             </select>
-                        </div>
-                        <div className="col-md-12 ">
-
-                            <label htmlFor='labelUpload' className="form-label label-upload"> <CiSquarePlus size={"1.5rem"} color='#1bc15d' /> Upload Image</label>
-                            <input
-                                type="file"
-                                hidden
-                                id='labelUpload'
-                                onChange={(e) => handleUploadImage(e)}
-                            />
                         </div>
                         <div className="col-md-12 img-preview">
                             {previewImage ?
@@ -134,12 +106,9 @@ const ModalUpdateUser = (props) => {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={() => handleSubmitCreateUser()}>
-                        Save
-                    </Button>
                 </Modal.Footer>
             </Modal>
         </>
     );
 }
-export default ModalUpdateUser;
+export default ModalViewUser;
