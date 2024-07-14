@@ -41,7 +41,12 @@ const Login = (props) => {
             <div className="login-container">
                 <div className="header">
                     <span>Don't have an account yet?</span>
-                    <button className="btn-sign-up">Sign up</button>
+                    <button 
+                        className="btn-sign-up"
+                        onClick={() => { navigate("/register") }} 
+                    >
+                        Sign up
+                    </button>
                 </div>
                 <div className="title col-4 mx-auto">
                     <span>HoiDanIT</span>
