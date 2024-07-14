@@ -1,0 +1,48 @@
+.login-container {
+    .header {
+        height: 45px;
+        text-align: right;
+        border: 1px solid red;
+
+    }
+
+    .title {
+        font-size: 25px;
+        padding: 20px 0;
+        text-align: center;
+    }
+
+    .welcome {
+        font-size: 20px;
+        padding: 6px 0 20px 0;
+        text-align: center;
+    }
+
+    .content-form {
+        display: flex;
+        flex-direction: column;
+        gap: 13px;
+
+        label {
+            display: block;
+            padding-bottom: 6px;
+        }
+        input{
+            border-radius: 5px;
+        }
+        .forgot {
+            padding-bottom: 10px;
+        }
+        .btn-submit {
+            border-radius: 5px;
+            border: none;
+            padding: 10px;
+            background-color: rgb(60, 60, 60);
+            color: white;
+
+            &:hover {
+                background-color: black;
+            }
+        }
+    }
+}
