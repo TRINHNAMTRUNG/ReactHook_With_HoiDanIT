@@ -1,4 +1,4 @@
-import SideBar from "./Sidebar";
+import SideBar from "./SideBar";
 import "../Admin/Admin.scss"
 import { FaBars } from "react-icons/fa";
 import { useState } from "react";

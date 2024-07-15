@@ -3,10 +3,15 @@ import { useNavigate } from "react-router-dom";
 import "../Auth/Login.scss"
 import { toast } from "react-toastify";
 import { postLogin } from "../../services/apiService";
+import { useDispatch } from "react-redux";
+import { doLogin } from "../../redux/action/userAction";
+import { ImSpinner9 } from "react-icons/im";
 const Login = (props) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const validateEmail = (email) => {
         return String(email)
@@ -15,7 +20,7 @@ const Login = (props) => {
                 /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
             );
     };
-    const handleLogin = async() => {
+    const handleLogin = async () => {
         // validate
         const isValidateEmail = validateEmail(email)
         if (!isValidateEmail) {
@@ -26,14 +31,19 @@ const Login = (props) => {
             toast.error("Invalid password");
             return;
         }
-        
+
+        setIsLoading(true);
+        //submit api
         let data = await postLogin(email, password);
-        console.log("check res: ",data)
-        if(data && data.EC === 0){
+        console.log("check res: ", data)
+        if (data && data.EC === 0) {
+            dispatch(doLogin(data));
             toast.success(data.EM);
+            setIsLoading(false);
             navigate("/")
-        }else{
+        } else {
             toast.error(data.EM);
+            setIsLoading(false);
         }
     }
     return (
@@ -41,9 +51,10 @@ const Login = (props) => {
             <div className="login-container">
                 <div className="header">
                     <span>Don't have an account yet?</span>
-                    <button 
+                    <button
+                        type="button"
                         className="btn-sign-up"
-                        onClick={() => { navigate("/register") }} 
+                        onClick={() => { navigate("/register") }}
                     >
                         Sign up
                     </button>
@@ -77,10 +88,14 @@ const Login = (props) => {
                         <span>Forgot password?</span>
                     </div>
                     <button
-                        className="btn-submit"
+                        className="btn-login"
                         onClick={() => handleLogin()}
+                        disabled={isLoading}
                     >
-                        Login to HoiDanIT
+                        <span>
+                            {isLoading && <ImSpinner9 className="loader-icon" />}
+                            Login to HoiDanIT
+                        </span>
                     </button>
                     <div className="text-center">
                         <span onClick={() => { navigate("/") }}> &#60; &#60; Go to Homepage</span>

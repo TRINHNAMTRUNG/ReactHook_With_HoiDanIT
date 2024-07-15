@@ -59,7 +59,10 @@ body {
 
 .app-container {
   .header-container {
-
+    
+    .container{
+      padding: 0 90px;
+    }
     .btn-login,
     .btn-signup {
       border-radius: 5px;

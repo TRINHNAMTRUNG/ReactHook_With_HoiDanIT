@@ -1,4 +1,5 @@
 import videohomepage from "../../assets/video-homepage.mp4"
+
 const HomePage = (props)=> {
     return(
         <div className="homepage-container">
