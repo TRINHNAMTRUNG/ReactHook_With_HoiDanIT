@@ -28,6 +28,8 @@ const deleteUser = (userId) => {
 const getUserWithPaginate = (page, limit) => {
     return axios.get(`api/v1/participant?page=${page}&limit=${limit}`);
 }
+
+//Login and Register
 const postLogin = (email, password, delay) => {
     return axios.post(`api/v1/login`, {email: email, password: password, delay: 1100});
 }
@@ -35,8 +37,14 @@ const postRegister = (email, username, password) => {
     return axios.post(`api/v1/register`, {email: email, password: password, username: username});
 }
 
+//Quiz
+const getQuizByUser = ()=> {
+    return axios.get(`api/v1/quiz-by-participant`);
+
+}
+
 export {
     postCreateUser, getAllUsers, putUpdateUser,
     deleteUser, getUserWithPaginate, postLogin, 
-    postRegister
+    postRegister, getQuizByUser
 };

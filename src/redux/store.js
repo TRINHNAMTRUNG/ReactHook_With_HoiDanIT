@@ -10,6 +10,7 @@ const persistConfig = {
     key: 'root',
     storage,
 }
+// hàm giúp bạn bọc reducer gốc của ứng dụng với khả năng lưu trữ và phục hồi state.
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 const store = createStore(persistedReducer, composeWithDevTools(applyMiddleware(thunk)));
 
