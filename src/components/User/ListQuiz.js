@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getQuizByUser } from "../../services/apiService";
-import "../User/ListQuiz.scss"
+import "../User/ListQuiz.scss";
 import { useNavigate } from "react-router-dom";
 const ListQuiz = (props) => {
   const [arrQuiz, setArrayQuiz] = useState([]);
